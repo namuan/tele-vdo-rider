@@ -10,4 +10,5 @@ data
 notebooks
 tmp-data
 __pycache__
-exchange-data
+output_dir/
+venv/

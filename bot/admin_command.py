@@ -1,12 +1,12 @@
+import logging
 import os
-import threading
-
 import sys
+import threading
 import time
 
+from bot.video_bot import updater
 from config import bot_cfg
 from . import restrict_access
-from . import updater
 
 
 # This needs to be run on a new thread because calling 'updater.stop()' inside a
@@ -19,6 +19,7 @@ def shutdown():
 def start_cmd(updater, bot=None, update=None):
     msg = "yt-Rider is running!\n"
     updater.bot.send_message(bot_cfg("TELEGRAM_USER_ID"), msg)
+    logging.info(msg)
 
 
 @restrict_access

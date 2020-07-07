@@ -10,13 +10,13 @@ deps: ## Install dependencies
 	./venv/bin/pip install -r requirements.txt
 
 lint: ## Runs black for code formatting
-	./venv/bin/black genie --exclude generated
+	./venv/bin/black . --exclude venv
 
 clean: ## Clean package
 	rm -rf build dist
 
-run: ## Run all unit tests
-	./venv/bin/python yt2audiobot.py
+run: lint ## Run all unit tests
+	./venv/bin/python yt-telegram-rider.py
 
 package: clean
 	./pypi.sh

@@ -5,18 +5,24 @@ python3 yt-telegram-rider.py
 from telegram.ext import CommandHandler
 
 from bot import *
+from bot.generic_message_handler import GenericMessageHandler
+from bot.video_bot import dispatcher, updater
+from config import init_logger
 
-dispatcher.add_error_handler(handle_telegram_error)
+if __name__ == '__main__':
+    init_logger()
 
-# Add command handlers to dispatcher
-dispatcher.add_handler(CommandHandler("start", start_cmd))
-dispatcher.add_handler(CommandHandler("restart", restart_cmd, pass_chat_data=True))
-dispatcher.add_handler(CommandHandler("shutdown", shutdown_cmd, pass_chat_data=True))
+    dispatcher.add_error_handler(handle_telegram_error)
 
-yt_command_setup(dispatcher)
+    # Add command handlers to dispatcher
+    dispatcher.add_handler(CommandHandler("start", start_cmd))
+    dispatcher.add_handler(CommandHandler("restart", restart_cmd, pass_chat_data=True))
+    dispatcher.add_handler(CommandHandler("shutdown", shutdown_cmd, pass_chat_data=True))
 
-updater.start_polling()
+    GenericMessageHandler(dispatcher)
 
-start_cmd(updater)
+    updater.start_polling()
 
-updater.idle()
+    start_cmd(updater)
+
+    updater.idle()
