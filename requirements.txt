@@ -1,0 +1,8 @@
+requests
+telegram
+logzero
+python-telegram-bot
+expiringdict
+arrow
+youtube-dl
+emoji
