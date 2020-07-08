@@ -1,7 +1,5 @@
-black
 requests
 telegram
 python-telegram-bot
-expiringdict
 youtube-dl
 emoji

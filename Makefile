@@ -4,16 +4,36 @@ export PROJECTNAME=$(shell basename "$(PWD)")
 
 setup: ## Setup Virtual Env
 	python3 -m venv venv
-	./venv/bin/pip install -r requirements.txt
+	./venv/bin/pip install -r requirements/dev.txt
 
 deps: ## Install dependencies
-	./venv/bin/pip install -r requirements.txt
+	./venv/bin/pip install -r requirements/dev.txt
 
 lint: ## Runs black for code formatting
 	./venv/bin/black . --exclude venv
 
 clean: ## Clean package
+	find . -type d -name '__pycache__' | xargs rm -rf
 	rm -rf build dist
+
+deploy: clean ## Copies any changed file to the server
+	ssh ${PROJECTNAME} -C 'bash -l -c "mkdir -vp ./yt-telegram-rider"'
+	rsync -avzr \
+		env.cfg \
+		yt-telegram-rider.py \
+		bot \
+		common \
+		config \
+		yt \
+		requirements \
+		scripts \
+		${PROJECTNAME}:./yt-telegram-rider
+
+start: deploy ## Sets up a screen session on the server and start the app
+	ssh ${PROJECTNAME} -C 'bash -l -c "./yt-telegram-rider/scripts/setup_bot.sh"'
+
+ssh: ## SSH into the target VM
+	ssh ${PROJECTNAME}
 
 run: lint ## Run all unit tests
 	./venv/bin/python yt-telegram-rider.py
