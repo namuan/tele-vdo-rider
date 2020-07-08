@@ -24,7 +24,6 @@ deploy: clean ## Copies any changed file to the server
 		bot \
 		common \
 		config \
-		yt \
 		requirements \
 		scripts \
 		${PROJECTNAME}:./yt-telegram-rider

@@ -2,4 +2,3 @@ requests
 telegram
 python-telegram-bot
 youtube-dl
-emoji

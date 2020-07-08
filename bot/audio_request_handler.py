@@ -5,32 +5,12 @@ import youtube_dl as yt
 
 from bot.exceptions import FileIsTooLargeException
 from common.helper import format_size, rename_file
-
-WORKING_DIRECTORY_ABS_PATH = os.path.abspath(".")
-AUDIO_OUTPUT_DIR_NAME = "output_dir"
-AUDIO_OUTPUT_DIR = os.path.join(WORKING_DIRECTORY_ABS_PATH, AUDIO_OUTPUT_DIR_NAME)
-OUTPUT_FORMAT = os.path.join(AUDIO_OUTPUT_DIR, "%(id)s.%(ext)s")
-PREFERRED_AUDIO_CODEC = "mp3"
+from config.bot_config import OUTPUT_FORMAT, PREFERRED_AUDIO_CODEC, AUDIO_OUTPUT_DIR
 
 
-class YoutubeAudioRequestHandler:
-    EXTRACT_AUDIO_PARAMS = {
-        "outtmpl": OUTPUT_FORMAT,
-        "format": "bestaudio/best",
-        "socket_timeout": 10,
-        "postprocessors": [
-            {
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": PREFERRED_AUDIO_CODEC,
-                "preferredquality": "192",
-            }
-        ],
-        "retries": 10,
-        "prefer_ffmpeg": True,
-        "keepvideo": True,
-    }
-
-    def __init__(self, notifier):
+class AudioRequestHandler:
+    def __init__(self, extraction_param, notifier):
+        self.extraction_param = extraction_param
         self.notifier = notifier
         self.video_info = None
 
@@ -46,12 +26,12 @@ class YoutubeAudioRequestHandler:
 
     def process_video(self, video_link, yt_video):
         self.video_info = yt_video
-        ydl = yt.YoutubeDL(self.EXTRACT_AUDIO_PARAMS)
+        ydl = yt.YoutubeDL(self.extraction_param)
         ydl.download([video_link])
         downloaded_filename = self.get_downloaded_file_abspath()
         file_size = os.path.getsize(downloaded_filename)
         formatted_file_size = format_size(file_size)
-        downloaded_video_message = "File size: {}".format(formatted_file_size)
+        downloaded_video_message = "🔈 File size: {}".format(formatted_file_size)
         self.notifier.progress_update(downloaded_video_message)
         logging.info(downloaded_video_message)
 

@@ -5,7 +5,6 @@ import threading
 import time
 
 from bot.video_bot import updater
-from config import bot_cfg
 from . import restrict_access
 
 
@@ -17,14 +16,12 @@ def shutdown():
 
 
 def start_cmd(updater, bot=None, update=None):
-    msg = "yt-Rider is running!\n"
-    updater.bot.send_message(bot_cfg("TELEGRAM_USER_ID"), msg)
-    logging.info(msg)
+    logging.info("PodTubeBot is running!")
 
 
 @restrict_access
 def shutdown_cmd(bot, update, chat_data):
-    update.message.reply_text("Shutting down...")
+    logging.info("Shutting down...")
 
     # See comments on the 'shutdown' function
     threading.Thread(target=shutdown).start()
@@ -32,7 +29,7 @@ def shutdown_cmd(bot, update, chat_data):
 
 @restrict_access
 def restart_cmd(bot, update, chat_data):
-    update.message.reply_text("Bot is restarting...")
+    logging.info("Bot is restarting...")
 
     time.sleep(0.2)
     os.execl(sys.executable, sys.executable, *sys.argv)
