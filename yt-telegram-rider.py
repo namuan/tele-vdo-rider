@@ -11,7 +11,6 @@ from config import init_logger
 
 if __name__ == "__main__":
     init_logger()
-
     dispatcher.add_error_handler(handle_telegram_error)
 
     # Add command handlers to dispatcher
@@ -21,10 +20,9 @@ if __name__ == "__main__":
         CommandHandler("shutdown", shutdown_cmd, pass_chat_data=True)
     )
 
+    # Register message handler
     GenericMessageHandler(dispatcher)
 
     updater.start_polling()
-
-    # start_cmd(updater)
 
     updater.idle()

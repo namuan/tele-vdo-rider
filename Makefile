@@ -4,10 +4,10 @@ export PROJECTNAME=$(shell basename "$(PWD)")
 
 setup: ## Setup Virtual Env
 	python3 -m venv venv
-	./venv/bin/pip install -r requirements/dev.txt
+	./venv/bin/pip3 install -r requirements/dev.txt
 
 deps: ## Install dependencies
-	./venv/bin/pip install -r requirements/dev.txt
+	./venv/bin/pip3 install -r requirements/dev.txt
 
 lint: ## Runs black for code formatting
 	./venv/bin/black . --exclude venv
@@ -35,7 +35,7 @@ ssh: ## SSH into the target VM
 	ssh ${PROJECTNAME}
 
 run: lint ## Run all unit tests
-	./venv/bin/python yt-telegram-rider.py
+	./venv/bin/python3 yt-telegram-rider.py
 
 package: clean
 	./pypi.sh
