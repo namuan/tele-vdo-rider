@@ -1,2 +1,2 @@
 -r base.txt
-black
+black==19.10b0

@@ -38,7 +38,7 @@ ssh: ## SSH into the target VM
 	ssh ${PROJECTNAME}
 
 run: lint ## Run bot locally
-	./venv/bin/python3 tele-vdo-rider
+	./venv/bin/python3 tele-vdo-rider.py
 
 .PHONY: help
 .DEFAULT_GOAL := help

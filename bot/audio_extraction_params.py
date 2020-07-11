@@ -1,5 +1,5 @@
-from config.bot_config import OUTPUT_FORMAT, PREFERRED_AUDIO_CODEC
 from bot.audio_request_handler import AudioRequestHandler
+from config.bot_config import OUTPUT_FORMAT, PREFERRED_AUDIO_CODEC
 
 YOUTUBE_REGEX = "^((http(s)?:\/\/)?)(www\.)?(m\.)?((youtube\.com\/)|(youtu.be\/))[\S]+"
 
@@ -39,8 +39,8 @@ def create_audio_extraction_params(video_extractor, notifier):
 
 
 def is_yt_video(extractor):
-    return extractor is "youtube"
+    return extractor == "youtube"
 
 
 def is_sound_cloud_video(extractor):
-    return extractor is "soundcloud"
+    return extractor == "soundcloud"
