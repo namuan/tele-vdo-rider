@@ -61,7 +61,7 @@ Here we will look at setting it up on [Vultr](https://www.vultr.com/?ref=7306977
 **Step 2: Clone this project**
 
 ```bash
-git clone https://github.com/namuan/tele-vdo-rider
+git clone https://github.com/namuan/tele-vdo-rider.git
 ```
 
 **Step 3: Checking connectivity**
