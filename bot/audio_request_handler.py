@@ -5,7 +5,7 @@ import youtube_dl as yt
 
 from bot.exceptions import FileIsTooLargeException
 from common.helper import format_size, rename_file
-from config.bot_config import OUTPUT_FORMAT, PREFERRED_AUDIO_CODEC, AUDIO_OUTPUT_DIR
+from config.bot_config import PREFERRED_AUDIO_CODEC, AUDIO_OUTPUT_DIR
 
 
 class AudioRequestHandler:
@@ -24,10 +24,13 @@ class AudioRequestHandler:
     def video_title(self):
         return self.video_info["title"]
 
-    def process_video(self, video_link, yt_video):
+    def video_url(self):
+        return self.video_info["webpage_url"]
+
+    def process_video(self, yt_video):
         self.video_info = yt_video
         ydl = yt.YoutubeDL(self.extraction_param)
-        ydl.download([video_link])
+        ydl.download([self.video_url()])
         downloaded_filename = self.get_downloaded_file_abspath()
         file_size = os.path.getsize(downloaded_filename)
         formatted_file_size = format_size(file_size)

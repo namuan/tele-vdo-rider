@@ -29,7 +29,7 @@ class VideoProvider:
         try:
             for yt_video in self.yt_videos():
                 logging.info("Processing Video -> {}".format(yt_video.info))
-                data = request_handler.process_video(video_link, yt_video.info)
+                data = request_handler.process_video(yt_video.info)
                 audio = open(data["filename"], "rb")
                 notifier.progress_update("Almost there. Uploading 🔈")
                 self.bot.send_chat_action(self.chat_id, "upload_audio")
@@ -49,10 +49,8 @@ class VideoProvider:
         if not self.is_yt_playlist():
             yield Video(self.video_info)
         else:
-            yield self.get_playlist_videos()[0]
-            # enable to download complete playlist
-            # for entry in self.get_playlist_videos():
-            #     yield Video(entry)
+            for entry in self.get_playlist_videos():
+                yield Video(entry)
 
     def is_yt_playlist(self):
         if "playlist" in self.get_type():
