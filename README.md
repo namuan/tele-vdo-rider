@@ -1,5 +1,7 @@
 ## Tube Telegram Rider
 
+[![GitHub license](https://img.shields.io/github/license/namuan/tele-vdo-rider.svg)](https://github.com/namuan/tele-vdo-rider/blob/master/LICENSE) [![Twitter Follow](https://img.shields.io/twitter/follow/deskriders_twt.svg?style=social&label=Follow)](https://twitter.com/deskriders_twt)
+
 Telegram Bot to convert videos to mp3 on your command.
 It uses [youtube-dl](https://ytdl-org.github.io/youtube-dl/index.html) so videos from any [supported website](https://ytdl-org.github.io/youtube-dl/supportedsites.html) can be used.
 
