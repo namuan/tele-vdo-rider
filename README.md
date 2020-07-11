@@ -10,6 +10,12 @@ It uses [youtube-dl](https://ytdl-org.github.io/youtube-dl/index.html) so videos
 There is a limitation in the current implementation due to restrictions on Telegram bots as it can only send files of any type of up to 50 MB in size.
 See https://core.telegram.org/bots/faq#how-do-i-upload-a-large-file for more information.
 
+### Clone project
+
+```bash
+git clone https://github.com/namuan/tele-vdo-rider.git
+```
+
 ### Running it locally
 
 To run it, you'll need to create a new bot using [@botfather](https://t.me/botfather). 
@@ -60,13 +66,7 @@ Here we will look at setting it up on [Vultr](https://www.vultr.com/?ref=7306977
 
 > Remember to Clean up: Make sure you delete this server if not used to avoid incurring cost. 
 
-**Step 2: Clone this project**
-
-```bash
-git clone https://github.com/namuan/tele-vdo-rider.git
-```
-
-**Step 3: Checking connectivity**
+**Step 2: Checking connectivity**
 
 Once you have the server running, make sure you can connect to it.
 It is better to set up a dedicated host entry as below.
@@ -91,7 +91,7 @@ $ make ssh
 
 Make sure this works before continuing. You may have to enter the Password from the VPS provider (Vultr/DigitalOcean).
 
-**Step 4: Installing dependencies**
+**Step 3: Installing dependencies**
 
 We do need to install a couple of dependencies if they are missing from the server.
 
@@ -100,7 +100,7 @@ We do need to install a couple of dependencies if they are missing from the serv
 $ make server
 ```
 
-**Step 5: Starting up Bot**
+**Step 4: Starting up Bot**
 
 Again, we'll use the make command to start the bot in a screen session.
 
@@ -110,7 +110,7 @@ make start
 
 The bot is running once the command finishes. Try sending another Youtube video to see it in action.
 
-**Step 6: Testing if Bot is running**
+**Step 5: Testing if Bot is running**
 
 If there is anything wrong, you can see what is going on the server.
 
@@ -130,7 +130,7 @@ Ctrl + A then D
 
 Once you are detached from a session, you can exit from the server leaving the bot running.
 
-**Step 7: [Optional] Updating Bot**
+**Step 6: [Optional] Updating Bot**
 
 Run the following command from your local machine, and it should update the bot and restart the session automatically.
 
