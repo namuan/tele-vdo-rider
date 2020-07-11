@@ -17,28 +17,28 @@ clean: ## Clean package
 	rm -rf build dist
 
 deploy: clean ## Copies any changed file to the server
-	ssh ${PROJECTNAME} -C 'bash -l -c "mkdir -vp ./yt-telegram-rider"'
+	ssh ${PROJECTNAME} -C 'bash -l -c "mkdir -vp ./tele-vdo-rider"'
 	rsync -avzr \
 		env.cfg \
-		yt-telegram-rider.py \
+		tele-vdo-rider.py \
 		bot \
 		common \
 		config \
 		requirements \
 		scripts \
-		${PROJECTNAME}:./yt-telegram-rider
+		${PROJECTNAME}:./tele-vdo-rider
 
 start: deploy ## Sets up a screen session on the server and start the app
-	ssh ${PROJECTNAME} -C 'bash -l -c "./yt-telegram-rider/scripts/setup_bot.sh"'
+	ssh ${PROJECTNAME} -C 'bash -l -c "./tele-vdo-rider/scripts/setup_bot.sh"'
+
+server: deploy ## Sets up dependencies required to run this bot
+	ssh ${PROJECTNAME} -C 'bash -l -c "./tele-vdo-rider/scripts/setup_dependencies.sh"'
 
 ssh: ## SSH into the target VM
 	ssh ${PROJECTNAME}
 
-run: lint ## Run all unit tests
-	./venv/bin/python3 yt-telegram-rider.py
-
-package: clean
-	./pypi.sh
+run: lint ## Run bot locally
+	./venv/bin/python3 tele-vdo-rider
 
 .PHONY: help
 .DEFAULT_GOAL := help

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-python3 yt-telegram-rider.py
+python3 tele-vdo-rider.py
 """
 from telegram.ext import CommandHandler
 
