@@ -154,7 +154,6 @@ make start
 * [yt2audiobot](https://github.com/gise88/yt2audiobot)
 * [Telegram](https://telegram.org/)
 
-
-## License
+## License
 
 See [LICENSE](LICENSE)
