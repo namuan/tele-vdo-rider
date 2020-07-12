@@ -3,7 +3,7 @@ import os
 
 import youtube_dl as yt
 
-from bot.exceptions import FileIsTooLargeException
+from bot.mp3_splitter import Mp3Splitter
 from common.helper import format_size, rename_file
 from config.bot_config import PREFERRED_AUDIO_CODEC, AUDIO_OUTPUT_DIR
 
@@ -44,14 +44,17 @@ class AudioRequestHandler:
         )
 
         # if the extracted audio file is larger than 50M
-        if file_size >> 20 > 50:
-            raise FileIsTooLargeException(
-                "Bots can currently send files of any type of up to 50 MB in size\n "
-                "https://core.telegram.org/bots/faq#how-do-i-upload-a-large-file\n "
-                "This audio file is {}!".format(formatted_file_size)
-            )
+        allowed_file_size = 50
+        if file_size >> 20 > allowed_file_size:
+            file_size_warning = "😱 File size {} > allowed {} therefore trying to chunk into smaller files".format(
+                formatted_file_size, allowed_file_size)
+            self.notifier.progress_update(file_size_warning)
+            logging.info(file_size_warning)
 
-        return {
-            "title": self.video_title(),
-            "filename": filename,
-        }
+            mp3_splitter = Mp3Splitter(filename)
+            for chunk_filename in mp3_splitter.split_chunks():
+                yield {"filename": chunk_filename}
+        else:
+            yield {
+                "filename": filename,
+            }
