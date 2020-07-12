@@ -8,7 +8,9 @@ It uses [youtube-dl](https://ytdl-org.github.io/youtube-dl/index.html) so videos
 ![](docs/tele-tube-mobile.gif)
 
 ✅ Support Youtube playlists along with a number of other websites.
+
 ✅ Convert to the best possible audio track
+
 ✅ Work around Telegram size limitation by chunking large MP3 files
 
 ### Clone project
@@ -151,6 +153,7 @@ make start
 * [mp3splt](http://mp3splt.sourceforge.net/mp3splt_page/home.php)
 * [yt2audiobot](https://github.com/gise88/yt2audiobot)
 * [Telegram](https://telegram.org/)
+
 
 ## License
 
