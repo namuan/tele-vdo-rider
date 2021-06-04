@@ -1,2 +1,2 @@
-cd tele-vdo-rider || exit
+cd $1 || exit
 bash ./scripts/stop_screen.sh tele-vdo-rider
