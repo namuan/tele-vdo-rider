@@ -3,9 +3,13 @@ import os
 
 import youtube_dl as yt
 
+from bot.exceptions import FileIsTooLargeException
 from bot.mp3_splitter import Mp3Splitter
 from common.helper import format_size, rename_file
 from config.bot_config import PREFERRED_AUDIO_CODEC, AUDIO_OUTPUT_DIR
+from config import bot_cfg
+
+split_file = int(bot_cfg("SPLIT_FILE", 0))  # 0 == False
 
 
 class AudioRequestHandler:
@@ -51,9 +55,12 @@ class AudioRequestHandler:
             self.notifier.progress_update(file_size_warning)
             logging.info(file_size_warning)
 
-            mp3_splitter = Mp3Splitter(filename)
-            for chunk_filename in mp3_splitter.split_chunks():
-                yield {"filename": chunk_filename}
+            if bool(split_file):
+                mp3_splitter = Mp3Splitter(filename)
+                for chunk_filename in mp3_splitter.split_chunks():
+                    yield {"filename": chunk_filename}
+            else:
+                raise FileIsTooLargeException("File too big to transfer. Copy with FTP/SFTP")
         else:
             yield {
                 "filename": filename,
