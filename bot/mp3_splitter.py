@@ -19,4 +19,6 @@ class Mp3Splitter(object):
             shell=True,
         )
         os.remove(self.original_file_path)
-        return [f for f in glob.glob("{}/* {}".format(self.file_directory, self.file_name))]
+        return [
+            f for f in glob.glob("{}/* {}".format(self.file_directory, self.file_name))
+        ]

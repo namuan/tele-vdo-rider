@@ -33,7 +33,11 @@ class VideoProvider:
                     filename = data["filename"]
                     audio = open(filename, "rb")
 
-                    notifier.progress_update("Almost there. Uploading {} 🔈".format(os.path.basename(filename)))
+                    notifier.progress_update(
+                        "Almost there. Uploading {} 🔈".format(
+                            os.path.basename(filename)
+                        )
+                    )
 
                     self.bot.send_chat_action(self.chat_id, "upload_audio")
                     self.bot.send_audio(

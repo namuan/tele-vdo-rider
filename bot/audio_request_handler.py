@@ -51,7 +51,8 @@ class AudioRequestHandler:
         allowed_file_size = 50
         if file_size >> 20 > allowed_file_size:
             file_size_warning = "😱 File size {} > allowed {} therefore trying to chunk into smaller files".format(
-                formatted_file_size, allowed_file_size)
+                formatted_file_size, allowed_file_size
+            )
             self.notifier.progress_update(file_size_warning)
             logging.info(file_size_warning)
 
@@ -60,7 +61,9 @@ class AudioRequestHandler:
                 for chunk_filename in mp3_splitter.split_chunks():
                     yield {"filename": chunk_filename}
             else:
-                raise FileIsTooLargeException("File too big to transfer. Copy with FTP/SFTP")
+                raise FileIsTooLargeException(
+                    "File too big to transfer. Copy with FTP/SFTP"
+                )
         else:
             yield {
                 "filename": filename,
