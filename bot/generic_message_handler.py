@@ -21,7 +21,9 @@ class GenericMessageHandler:
         try:
             video_provider = VideoProvider(bot, cid)
             reply_message = bot.send_message(
-                cid, "Got it. 👀 at 📼".format(video_link), disable_web_page_preview=True,
+                cid,
+                "Got it. 👀 at 📼".format(video_link),
+                disable_web_page_preview=True,
             )
             video_provider.process(video_link, reply_message.message_id)
             bot.delete_message(cid, reply_message.message_id)
@@ -31,9 +33,8 @@ class GenericMessageHandler:
                 "🆘 Looks like something went wrong. "
                 "\nWe'll have a look and try to fix this issue."
             )
-            logging.error(
+            logging.exception(
                 "Error processing request for {} and video link: {}".format(
                     cid, video_link
                 ),
-                e,
             )

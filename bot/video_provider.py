@@ -50,7 +50,7 @@ class VideoProvider:
             logging.error("[File Is Too Large] %s", e)
             self.bot.send_message(self.chat_id, str(e), disable_web_page_preview=True)
         except Exception as e:
-            logging.error("Something bad happened: %s", e)
+            logging.exception("Something bad happened: %s", e)
             self.bot.send_message(self.chat_id, str(e), disable_web_page_preview=True)
 
         notifier.progress_update("Done! ✅")
