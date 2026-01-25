@@ -1,11 +1,25 @@
 #!/usr/bin/env bash
 if [[ $# -eq 0 ]]; then
-  echo 'COMMAND required as first argument. python3.6 ...'
+  echo 'SESSION_NAME required as first argument'
   exit 0
 fi
 
-SCREEN_NAME=$1
+SESSION_NAME=$1
 
-screen -X -S "${SCREEN_NAME}" stuff "^C"
-screen -X -S "${SCREEN_NAME}" quit
+# Get all pids of the session
+PIDS=$(tmux list-panes -t "${SESSION_NAME}" -F "#{pane_pid}" 2>/dev/null)
 
+if [ -n "$PIDS" ]; then
+  for pid in $PIDS; do
+    # Find the process group ID (PGID) for the PID
+    pgid=$(ps -o pgid= -p "$pid" | grep -o '[0-9]*')
+
+    if [ -n "$pgid" ]; then
+      # Kill the entire process group
+      kill -TERM -"$pgid" 2>/dev/null
+    fi
+  done
+fi
+
+# Kill the tmux session
+tmux kill-session -t "${SESSION_NAME}" 2>/dev/null

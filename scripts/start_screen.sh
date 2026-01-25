@@ -4,10 +4,12 @@ if [[ $# -eq 0 ]] ; then
     exit 0
 fi
 
-SCREEN_NAME=$1
-SCREEN_CMD=$2
+SESSION_NAME=$1
+SESSION_CMD=$2
 
-screen -X -S "${SCREEN_NAME}" stuff "^C"
-screen -X -S "${SCREEN_NAME}" quit
-screen -d -m -S "${SCREEN_NAME}"
-screen -S "${SCREEN_NAME}" -p 0 -X stuff "${SCREEN_CMD}$(printf \\r)"
+# Kill existing session if it exists
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+"${SCRIPT_DIR}/stop_screen.sh" "${SESSION_NAME}"
+
+# Create new session and run command
+tmux new-session -d -s "${SESSION_NAME}" "${SESSION_CMD}"
